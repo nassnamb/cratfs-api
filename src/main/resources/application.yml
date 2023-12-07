@@ -1,8 +1,11 @@
+home:
+  path: C:\Users\DELL\Documents\Dev\credential\.credential
+
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/crafts
+    url: ${DATABASE_URL}
     username: postgres
-    password: Tikaflakour@94
+    password: ${DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: none
@@ -10,6 +13,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  config:
+    import:
+      optional:file:${home.path}\postgres.DEV.yaml
 
 logging:
   pattern:
