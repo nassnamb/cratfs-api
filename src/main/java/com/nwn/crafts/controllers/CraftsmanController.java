@@ -3,7 +3,7 @@ package com.nwn.crafts.controllers;
 
 import com.nwn.crafts.core.domain.CraftsException;
 import com.nwn.crafts.core.domain.CraftsmanNotFountException;
-import com.nwn.crafts.core.models.Craftsman;
+import com.nwn.crafts.core.domain.Craftsman;
 import com.nwn.crafts.core.services.CraftsmanService;
 import com.nwn.crafts.dto.CraftsmanDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,7 +55,7 @@ public class CraftsmanController {
     })
     @PostMapping("/create")
     public Craftsman create(@RequestBody final CraftsmanDto craftsman) {
-        return craftsmanService.save(craftsman);
+        return craftsmanService.create(craftsman);
     }
 
 
