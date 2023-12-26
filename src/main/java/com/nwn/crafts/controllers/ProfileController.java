@@ -1,13 +1,9 @@
 package com.nwn.crafts.controllers;
 
 import com.nwn.crafts.core.domain.CraftsException;
-import com.nwn.crafts.core.domain.Craftsman;
-import com.nwn.crafts.core.domain.CraftsmanNotFountException;
 import com.nwn.crafts.core.domain.ProfileNotFoundException;
-import com.nwn.crafts.core.models.Profile;
-import com.nwn.crafts.core.services.CraftsmanService;
+import com.nwn.crafts.core.models.ihm.Profile;
 import com.nwn.crafts.core.services.ProfileService;
-import com.nwn.crafts.dto.CraftsmanDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
