@@ -1,7 +1,7 @@
 package com.nwn.crafts.core.services;
 
 import com.nwn.crafts.core.domain.CraftsException;
-import com.nwn.crafts.core.models.User;
+import com.nwn.crafts.core.models.ihm.User;
 import com.nwn.crafts.dto.UserDto;
 import com.nwn.crafts.repository.UserRepository;
 import org.slf4j.Logger;

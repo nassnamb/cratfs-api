@@ -1,9 +1,8 @@
 package com.nwn.crafts.controllers;
 
 import com.nwn.crafts.core.domain.CraftsException;
-import com.nwn.crafts.core.domain.CraftsmanNotFountException;
 import com.nwn.crafts.core.domain.UserProfileNotFoundException;
-import com.nwn.crafts.core.models.UserProfile;
+import com.nwn.crafts.core.models.ihm.UserProfile;
 import com.nwn.crafts.core.services.ProfileService;
 import com.nwn.crafts.core.services.UserProfileService;
 import com.nwn.crafts.core.services.UserService;
