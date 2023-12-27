@@ -1,7 +1,8 @@
 package com.nwn.crafts.core.services;
 
 import com.nwn.crafts.core.domain.CraftsException;
-import com.nwn.crafts.core.models.ihm.Profile;
+import com.nwn.crafts.core.domain.ProfileNotFoundException;
+import com.nwn.crafts.core.models.Profile;
 import com.nwn.crafts.repository.ProfileRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +28,8 @@ public class ProfileService {
         return profileRepository.findAll();
     }
 
-    public Profile findById(String profile) {
-        return profileRepository.findById(profile).orElse(null);
+    public Profile findById(String profileId) {
+        return profileRepository.findById(profileId).orElseThrow(() -> new ProfileNotFoundException(format("No profile found for this profile id: %s", profileId)));
     }
 
     public Profile addProfile(Profile profile) {

@@ -1,7 +1,7 @@
 package com.nwn.crafts.core.services;
 
 import com.nwn.crafts.core.domain.CraftsException;
-import com.nwn.crafts.core.models.ihm.User;
+import com.nwn.crafts.core.models.User;
 import com.nwn.crafts.dto.UserDto;
 import com.nwn.crafts.repository.UserRepository;
 import org.slf4j.Logger;
@@ -9,7 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -48,27 +50,35 @@ public class UserService {
     }
 
     public UserDto addUser(User user) {
+        Objects.requireNonNull(user, "user can not be null");
+        if (findById(user.getUserId()) != null) {
+            throw new IllegalArgumentException(format("A user with id %s already exists", user.getUserId()));
+        }
+        if (user.getCreationDate() == null) {
+            user.setCreationDate(new Date());
+        }
         var userAdded = userRepository.saveAndFlush(user);
         return mapToUserDto(userAdded);
     }
 
     public UserDto updateUser(Long userId, User user) throws CraftsException {
-        Objects.requireNonNull(user);
+        Objects.requireNonNull(user, "user can not be null");
         logger.debug("Updating user with id : {}", userId);
         User current = userRepository.findById(userId).orElse(null);
         if (current != null) {
-            BeanUtils.copyProperties(user, current, "userId");
+            BeanUtils.copyProperties(user, current, "userId", "creationDate");
+            var updatedUser = userRepository.saveAndFlush(current);
+            return mapToUserDto(updatedUser);
         } else {
             throw new CraftsException(format("No user found with id: %s", userId));
         }
-        var updatedUser = userRepository.saveAndFlush(current);
-        return mapToUserDto(updatedUser);
     }
 
     public void deleteUserById(Long userId) {
         userRepository.deleteById(userId);
     }
 
+    @Transactional
     public void deleteByUserLogin(String login) {
         userRepository.deleteUserByLogin(login);
     }

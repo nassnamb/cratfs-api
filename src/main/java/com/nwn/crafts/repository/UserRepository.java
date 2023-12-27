@@ -1,6 +1,6 @@
 package com.nwn.crafts.repository;
 
-import com.nwn.crafts.core.models.ihm.User;
+import com.nwn.crafts.core.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

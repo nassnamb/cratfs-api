@@ -1,8 +1,9 @@
-package com.nwn.crafts.core.models.ihm;
+package com.nwn.crafts.core.models;
 
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @Entity
@@ -27,7 +28,8 @@ public class User {
 
     private String status;//ACTIF ou INACTIF
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_date")
-    private String  creationDate;
+    private Date creationDate;
 
 }

@@ -1,8 +1,9 @@
-package com.nwn.crafts.core.models.ihm;
+package com.nwn.crafts.core.models;
 
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @Entity
@@ -12,13 +13,14 @@ public class UserProfile {
 
     @Id
     @Column(name = "user_login", nullable = false)
-    private Long userLogin;
+    private String userLogin;
 
     //@Id
     @Column(name = "profile", nullable = false)
     private String profile;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "grant_date")
-    private String  grantDate;
+    private Date grantDate;
 
 }

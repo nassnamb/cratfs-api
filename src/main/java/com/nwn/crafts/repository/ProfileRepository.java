@@ -1,7 +1,7 @@
 package com.nwn.crafts.repository;
 
 
-import com.nwn.crafts.core.models.ihm.Profile;
+import com.nwn.crafts.core.models.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
