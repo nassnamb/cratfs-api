@@ -1,4 +1,4 @@
-package com.nwn.crafts.core.models.ihm;
+package com.nwn.crafts.core.models;
 
 import lombok.Data;
 
@@ -11,7 +11,7 @@ public class Profile {
 
     @Id
     @Column(name = "profile")
-    private String profile;
+    private String profileId;
 
     private String description;
 

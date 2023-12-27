@@ -2,7 +2,7 @@ package com.nwn.crafts.controllers;
 
 import com.nwn.crafts.core.domain.CraftsException;
 import com.nwn.crafts.core.domain.ProfileNotFoundException;
-import com.nwn.crafts.core.models.ihm.Profile;
+import com.nwn.crafts.core.models.Profile;
 import com.nwn.crafts.core.services.ProfileService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,11 +39,15 @@ public class ProfileController {
     @Operation(summary = "Get a profile Object by profile", description = "Returns a profile Object from his profile")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved"),
-            @ApiResponse(responseCode = "404", description = "Not found - No profile Object was found for this profile")
+            @ApiResponse(responseCode = "404", description = "Not found - No profile Object was found for this profile id")
     })
     @GetMapping("{profile}")
-    public Profile get(@PathVariable String profile) {
-        return profileService.findById(profile);
+    public ResponseEntity<Profile> get(@PathVariable String profile) {
+        try {
+            return ResponseEntity.ok(profileService.findById(profile));
+        } catch (ProfileNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 

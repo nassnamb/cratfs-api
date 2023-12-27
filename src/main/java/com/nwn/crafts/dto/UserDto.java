@@ -2,6 +2,8 @@ package com.nwn.crafts.dto;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class UserDto {
 
@@ -15,6 +17,6 @@ public class UserDto {
 
     private String status;
 
-    private String creationDate;
+    private Date creationDate;
 
 }

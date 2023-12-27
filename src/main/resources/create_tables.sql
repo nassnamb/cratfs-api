@@ -14,7 +14,7 @@ CREATE TABLE users
     first_name  	varchar(50) NOT NULL,
 	password     	varchar(50) NOT NULL,
     status       	varchar(50) NULL,
-    creation_date	timestamp(6) NOT NULL
+    creation_date	timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 --Table profile --

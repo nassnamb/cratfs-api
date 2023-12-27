@@ -1,4 +1,4 @@
-package com.nwn.crafts.core.models.ihm;
+package com.nwn.crafts.core.models;
 
 import lombok.Data;
 

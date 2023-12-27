@@ -2,7 +2,8 @@ package com.nwn.crafts.controllers;
 
 import com.nwn.crafts.core.domain.CraftsException;
 import com.nwn.crafts.core.domain.UserProfileNotFoundException;
-import com.nwn.crafts.core.models.ihm.UserProfile;
+import com.nwn.crafts.core.models.UserProfile;
+import com.nwn.crafts.core.models.ihm.UserWithProfile;
 import com.nwn.crafts.core.services.ProfileService;
 import com.nwn.crafts.core.services.UserProfileService;
 import com.nwn.crafts.core.services.UserService;
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,8 +49,23 @@ public class UserProfileController {
             @ApiResponse(responseCode = "404", description = "Not found - No UserProfile was found for this login")
     })
     @GetMapping("{login}")
-    public UserProfile get(@PathVariable String userLogin) {
-        return userProfileService.findByLogin(userLogin);
+    public ResponseEntity<UserProfile> get(@PathVariable String login) {
+        try {
+            return ResponseEntity.ok(userProfileService.findByLogin(login));
+        } catch (UserProfileNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+    @Operation(summary = "Get Users data With profiles", description = "Returns Users info with their linked profiles")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved"),
+            @ApiResponse(responseCode = "404", description = "Not found - No UserWithProfile was found")
+    })
+    @GetMapping("/usersWithProfiles")
+    public List<UserWithProfile> getUsersWithProfiles() {
+        return userProfileService.getUsersWithProfiles();
     }
 
 

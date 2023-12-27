@@ -1,7 +1,7 @@
 package com.nwn.crafts.repository;
 
 
-import com.nwn.crafts.core.models.ihm.UserProfile;
+import com.nwn.crafts.core.models.UserProfile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -11,8 +11,6 @@ import java.util.List;
 
 @Repository
 public interface UserProfileRepository extends JpaRepository<UserProfile, String> {
-
-    UserProfile getByUserLogin(String userLogin);
 
     List<UserProfile> findAllByProfile(String profile);
 
