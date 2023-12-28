@@ -22,7 +22,7 @@ CREATE TABLE profile
 (
     profile varchar(50),
     description varchar(240) NOT NULL,
-    CONSTRAINT profile_pkey PRIMARY KEY (profile_id)
+    CONSTRAINT profile_pkey PRIMARY KEY (profile)
 );
 
 --Table user_profile --
