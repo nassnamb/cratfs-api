@@ -29,4 +29,4 @@ you will see following output in console :
 >Tomcat started on port(s): 8080 (http) with context path '' 
 >Started CraftsApplication in 7.892 seconds
 
-go to swagger : http://localhost:8080/swagger-ui.html#/
+go to swagger : http://localhost:8080/swagger-ui/index.html
