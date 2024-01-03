@@ -1,4 +1,4 @@
-package com.nwn.crafts.core.domain;
+package com.nwn.crafts.core.models;
 
 public class UserNotFoundException extends RuntimeException {
 

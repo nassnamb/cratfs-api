@@ -51,7 +51,7 @@ public class UserService {
 
     public UserDto addUser(User user) {
         Objects.requireNonNull(user, "user can not be null");
-        if (findById(user.getUserId()) != null) {
+        if (user.getUserId() != null && findById(user.getUserId()) != null) {
             throw new IllegalArgumentException(format("A user with id %s already exists", user.getUserId()));
         }
         if (user.getCreationDate() == null) {
@@ -66,6 +66,9 @@ public class UserService {
         logger.debug("Updating user with id : {}", userId);
         User current = userRepository.findById(userId).orElse(null);
         if (current != null) {
+            if (user.getPassword() == null) {
+                user.setPassword(current.getPassword());
+            }
             BeanUtils.copyProperties(user, current, "userId", "creationDate");
             var updatedUser = userRepository.saveAndFlush(current);
             return mapToUserDto(updatedUser);

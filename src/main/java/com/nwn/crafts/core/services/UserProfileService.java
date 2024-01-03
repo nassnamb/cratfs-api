@@ -1,7 +1,7 @@
 package com.nwn.crafts.core.services;
 
 import com.nwn.crafts.core.domain.CraftsException;
-import com.nwn.crafts.core.domain.UserProfileNotFoundException;
+import com.nwn.crafts.core.models.UserProfileNotFoundException;
 import com.nwn.crafts.core.models.UserProfile;
 import com.nwn.crafts.core.models.ihm.UserWithProfile;
 import com.nwn.crafts.repository.UserProfileExtendedRepository;

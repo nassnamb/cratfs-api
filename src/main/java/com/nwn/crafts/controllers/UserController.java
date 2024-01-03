@@ -2,6 +2,7 @@ package com.nwn.crafts.controllers;
 
 import com.nwn.crafts.core.domain.*;
 import com.nwn.crafts.core.models.User;
+import com.nwn.crafts.core.models.UserNotFoundException;
 import com.nwn.crafts.core.services.UserService;
 import com.nwn.crafts.dto.UserDto;
 import io.swagger.v3.oas.annotations.Operation;
