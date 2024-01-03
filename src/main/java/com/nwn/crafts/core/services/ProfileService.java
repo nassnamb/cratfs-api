@@ -1,7 +1,7 @@
 package com.nwn.crafts.core.services;
 
 import com.nwn.crafts.core.domain.CraftsException;
-import com.nwn.crafts.core.domain.ProfileNotFoundException;
+import com.nwn.crafts.core.models.ProfileNotFoundException;
 import com.nwn.crafts.core.models.Profile;
 import com.nwn.crafts.repository.ProfileRepository;
 import org.slf4j.Logger;
