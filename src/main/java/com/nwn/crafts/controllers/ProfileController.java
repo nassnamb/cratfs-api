@@ -83,7 +83,8 @@ public class ProfileController {
             @ApiResponse(responseCode = "404", description = "Not found - No Profile's Object was found for this profile's id")
     })
     @DeleteMapping("/delete/{profileId}")
-    public void delete(@PathVariable String profileId) {
+    public ResponseEntity<String> delete(@PathVariable String profileId) {
         profileService.deleteById(profileId);
+        return ResponseEntity.ok("profile deleted successfully");
     }
 }

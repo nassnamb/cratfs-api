@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -88,8 +89,9 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "Not found - No craftsman was found for this id")
     })
     @DeleteMapping("/delete/byId/{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<String> delete(@PathVariable Long id) {
         userService.deleteUserById(id);
+        return ResponseEntity.ok("User deleted successfully");
     }
 
     @Operation(summary = "Delete user by login", description = "Delete an existing user from his login")

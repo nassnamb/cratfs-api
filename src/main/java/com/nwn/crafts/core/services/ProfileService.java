@@ -3,6 +3,7 @@ package com.nwn.crafts.core.services;
 import com.nwn.crafts.core.domain.CraftsException;
 import com.nwn.crafts.core.models.ProfileNotFoundException;
 import com.nwn.crafts.core.models.Profile;
+import com.nwn.crafts.core.models.UserNotFoundException;
 import com.nwn.crafts.repository.ProfileRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +38,12 @@ public class ProfileService {
     }
 
     public void deleteById(String profileId) {
-        profileRepository.deleteById(profileId);
+        Objects.requireNonNull(profileId, "profile Id can not be null");
+        if (findById(profileId) != null) {
+            profileRepository.deleteById(profileId);
+        } else {
+            throw new UserNotFoundException("le profil " + profileId + " est introuvable");
+        }
     }
 
     public Profile updateProfile(String profileId, Profile profile) throws CraftsException {

@@ -2,6 +2,7 @@ package com.nwn.crafts.core.services;
 
 import com.nwn.crafts.core.domain.CraftsException;
 import com.nwn.crafts.core.models.User;
+import com.nwn.crafts.core.models.UserNotFoundException;
 import com.nwn.crafts.dto.UserDto;
 import com.nwn.crafts.repository.UserRepository;
 import org.slf4j.Logger;
@@ -78,7 +79,12 @@ public class UserService {
     }
 
     public void deleteUserById(Long userId) {
-        userRepository.deleteById(userId);
+        Objects.requireNonNull(userId, "user's id can not be null");
+        if (findById(userId) != null) {
+            userRepository.deleteById(userId);
+        } else {
+            throw new UserNotFoundException("utilisateur avec l'id " + userId + " introuvable");
+        }
     }
 
     @Transactional
