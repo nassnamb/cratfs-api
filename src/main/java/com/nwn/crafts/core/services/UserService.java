@@ -2,6 +2,7 @@ package com.nwn.crafts.core.services;
 
 import com.nwn.crafts.core.domain.CraftsException;
 import com.nwn.crafts.core.models.User;
+import com.nwn.crafts.core.models.UserInvalidException;
 import com.nwn.crafts.core.models.UserNotFoundException;
 import com.nwn.crafts.dto.UserDto;
 import com.nwn.crafts.repository.UserRepository;
@@ -9,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,8 +60,14 @@ public class UserService {
         if (user.getCreationDate() == null) {
             user.setCreationDate(new Date());
         }
-        var userAdded = userRepository.saveAndFlush(user);
-        return mapToUserDto(userAdded);
+        User userAdded;
+        try {
+            userAdded = userRepository.saveAndFlush(user);
+            return mapToUserDto(userAdded);
+        } catch (DataIntegrityViolationException e) {
+            logger.error("Le login {} est déja utilisé par un autre utilisateur", user.getLogin());
+            throw new UserInvalidException("Le login {} est déja utilisé par un autre utilisateur");
+        }
     }
 
     public UserDto updateUser(Long userId, User user) throws CraftsException {

@@ -4,6 +4,7 @@ import com.nwn.crafts.core.domain.*;
 import com.nwn.crafts.core.models.User;
 import com.nwn.crafts.core.models.UserNotFoundException;
 import com.nwn.crafts.core.services.UserService;
+import com.nwn.crafts.core.util.JSONTools;
 import com.nwn.crafts.dto.UserDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -11,10 +12,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("api/v1/users")
@@ -63,8 +66,14 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "No User is created")
     })
     @PostMapping("/create")
-    public UserDto create(@RequestBody final User user) {
-        return userService.addUser(user);
+    public ResponseEntity<String> create(@RequestBody final User user) {
+        try {
+            var userDto = userService.addUser(user);
+            return ResponseEntity.ok(Objects.requireNonNull(JSONTools.pojoToJSONString(userDto)));
+        } catch (Exception e) {
+            String errorMessage = "Failed to delete user: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
+        }
     }
 
 
@@ -90,8 +99,13 @@ public class UserController {
     })
     @DeleteMapping("/delete/byId/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
-        userService.deleteUserById(id);
-        return ResponseEntity.ok("User deleted successfully");
+        try {
+            userService.deleteUserById(id);
+            return ResponseEntity.ok("User deleted successfully");
+        } catch (Exception e) {
+            String errorMessage = "Failed to delete user: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
+        }
     }
 
     @Operation(summary = "Delete user by login", description = "Delete an existing user from his login")

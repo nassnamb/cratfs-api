@@ -1,3 +1,8 @@
+app:
+  name: crafts-api
+  version: 1.0.0-SNAPSHOT
+  env: DEV
+
 home:
   path: C:\Users\DELL\Documents\Dev\credential\.credential
 
