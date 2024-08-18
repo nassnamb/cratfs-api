@@ -46,3 +46,66 @@ CREATE TABLE AUDIT_LINES
     objectJSON   	varchar(2048) NULL
 );
 
+-------------------------------------------
+---new tables-----
+-------------------------------------------
+
+--Table Category --
+DROP TABLE Category
+CREATE TABLE Category (
+                          category_id SERIAL PRIMARY KEY,
+                          title VARCHAR(255) NOT NULL,
+                          picture VARCHAR(255)
+);
+
+
+--Table Job --
+DROP TABLE Job
+CREATE TABLE Job (
+                     job_id SERIAL PRIMARY KEY,
+                     nomJob VARCHAR(255) NOT NULL,
+                     category_id INT,
+                     picture VARCHAR(255),
+                     FOREIGN KEY (category_id) REFERENCES Category(category_id)
+);
+
+--Table Pays --
+DROP TABLE Pays
+CREATE TABLE Pays (
+                      codePays CHAR(3) PRIMARY KEY,
+                      nomPays VARCHAR(255) NOT NULL
+);
+--Table Communes --
+DROP TABLE Communes
+CREATE TABLE Communes (
+                          codePays CHAR(3),
+                          nomCommune VARCHAR(255) NOT NULL,
+                          PRIMARY KEY (codePays, nomCommune),
+                          FOREIGN KEY (codePays) REFERENCES Pays(codePays)
+);
+
+--Table Jobeur --
+DROP TABLE Jobeur
+CREATE TABLE Jobeur (
+                        jobeur_id SERIAL PRIMARY KEY,
+                        nom VARCHAR(255) NOT NULL,
+                        prenom VARCHAR(255) NOT NULL,
+                        pays_id CHAR(3),
+                        job_id VARCHAR(255),
+                        codePays CHAR(3),
+                        nomCommune VARCHAR(255),
+                        description TEXT,
+                        photo VARCHAR(255),
+                        FOREIGN KEY (pays_id) REFERENCES Pays(codePays),
+                        FOREIGN KEY (job_id) REFERENCES Job(job_id),
+                        FOREIGN KEY (codePays, nomCommune) REFERENCES Communes(codePays, nomCommune)
+);
+
+--Table JobeurService --
+CREATE TABLE JobeurService (
+                               jobeur_id INT,
+                               service VARCHAR(255),
+                               PRIMARY KEY (jobeur_id, service),
+                               FOREIGN KEY (jobeur_id) REFERENCES Jobeur(jobeur_id)
+);
+
